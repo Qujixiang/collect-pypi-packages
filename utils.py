@@ -1,3 +1,4 @@
+import os
 from datetime import date
 import logging
 
@@ -13,7 +14,7 @@ def get_logger(name: str, log_file: str, level: int = logging.INFO):
     logger = logging.getLogger(name)
     logger.setLevel(level)
     formatter = logging.Formatter(fmt='%(asctime)s %(levelname)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    fh = logging.FileHandler(log_file, mode='a')
+    fh = logging.FileHandler(log_file, mode='w')
     fh.setLevel(level)
     fh.setFormatter(formatter)
     logger.addHandler(fh)
@@ -41,7 +42,9 @@ def get_requirements_path(day: date) -> str:
     :param day: date
     :return: path to the requirements file
     """
-    return f'requirements/{day.year}-{day.month}-{day.day}.requirements.txt'
+    path = f'requirements/{day.year}-{day.month}-{day.day}'
+    os.makedirs(path, exist_ok=True)
+    return f'{path}/requirements.txt'
 
 def get_common_log_path(day: date) -> str:
     """
@@ -49,7 +52,9 @@ def get_common_log_path(day: date) -> str:
     :param day: date
     :return: path of the common log file
     """
-    return f'logs/{day.year}-{day.month}-{day.day}.log'
+    path = f'logs/{day.year}-{day.month}-{day.day}'
+    os.makedirs(path, exist_ok=True)
+    return f'{path}/common.log'
 
 def get_pip_download_log_path(day: date) -> str:
     """
@@ -57,12 +62,26 @@ def get_pip_download_log_path(day: date) -> str:
     :param day: date
     :return: path to pip download log file
     """
-    return f'logs/{day.year}-{day.month}-{day.day}.pip_download.log'
+    path = f'logs/{day.year}-{day.month}-{day.day}'
+    os.makedirs(path, exist_ok=True)
+    return f'{path}/pip_download.log'
 
 def get_packages_path(day: date) -> str:
     """
-    Get the path to the packages file
+    Get the path to the directory of packages file
     :param day: date
-    :return: path to the packages file
+    :return: path to the directory of the packages file
     """
-    return f'packages/{day.year}-{day.month}-{day.day}'
+    path = f'packages/{day.year}-{day.month}-{day.day}'
+    os.makedirs(path, exist_ok=True)
+    return path
+
+def get_package_info_path(day: date) -> str:
+    """
+    Get the path to the directory of the package information file
+    :param day: date
+    :return: path to the directory of the package information file
+    """
+    path = f'data/package_info/{day.year}-{day.month}-{day.day}'
+    os.makedirs(path, exist_ok=True)
+    return path
