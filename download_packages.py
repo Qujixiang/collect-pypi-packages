@@ -7,12 +7,12 @@ import subprocess
 
 import requests
 
-from utils import get_logger, split_file, get_requirements_path, get_common_log_path, get_pip_download_log_path, get_packages_path, get_package_info_path
+from utils import get_logger, split_file, get_requirements_path, get_common_log_path, get_download_log_path, get_packages_path, get_package_info_path
 
 
 yesterday = date.today() - timedelta(days=1)
 common_logger = get_logger('common_logger', get_common_log_path(yesterday))
-pip_download_logger = get_logger('pip_download_logger', get_pip_download_log_path(yesterday))
+pip_download_logger = get_logger('pip_download_logger', get_download_log_path(yesterday))
 
 def get_package_info(day: date) -> list or None:
     """

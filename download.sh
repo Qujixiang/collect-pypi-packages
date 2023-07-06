@@ -5,8 +5,8 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
-destination_path=$1
-requirements_file_path=$2
+destination_path=$(realpath $1)
+requirements_file_path=$(realpath $2)
 
 source env/bin/activate
 while IFS= read -r line; do
